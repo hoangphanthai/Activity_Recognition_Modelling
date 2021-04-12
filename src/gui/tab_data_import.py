@@ -40,7 +40,6 @@ class TabDataImport(ttk.Frame):
         self.txtMonitoringCSVFile_Text = tk.StringVar() 
         self.txtResultCSVFile_Text =  tk.StringVar()
         
-        
         self.lbl_frame_select_data_source = tk.LabelFrame(self, text = 'Select data source',font = ('Sans', '10', 'bold'))
         self.lbl_frame_select_data_source.grid (row = 0, column = 0, padx = 20, pady = 10, sticky = tk.W)
 
@@ -325,8 +324,7 @@ class TabDataImport(ttk.Frame):
         else:
             self.txtMonitoringTable.configure(state = 'normal')
             globals.monitoring_mode = True
-        
-
+  
     def monitoringCSVSelectDeselect(self):
         if self.selectMonitoringCSVActivityOnOff.get() ==  0:
             self.txtMonitoringCSVFile.configure(state = 'disabled')

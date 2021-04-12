@@ -72,7 +72,12 @@ def get_import_data_controls_init_params():
         globals.app_config.read(os.path.join(globals.dir_path, globals.APP_INI_FILE))
 
         db_credentials_file_path = globals.app_config['IMPORT TAB']['dbini']
-        globals.db_config.read(db_credentials_file_path)
+
+        # POSTGRESQL section contains invalid ini file path then set the template
+        if not os.path.isfile(db_credentials_file_path):
+            db_credentials_file_path = os.path.join(globals.dir_path, 'db_credentials.ini')
+        
+        globals.db_config.read(db_credentials_file_path)            
 
         return db_credentials_file_path, globals.db_config.items('DATA SOURCE'), globals.db_config.items('POSTGRESQL'),  globals.db_config.items('CSV PATH')
 
