@@ -169,8 +169,17 @@ class TabDataImport(ttk.Frame):
 
 
             # CSV section
-            self.txtTrainCSVFile_Text.set(params_csv[0][1])
-            self.txtMonitoringCSVFile_Text.set(params_csv[1][1])
+            # Check the existing of the input files otherwise set the ones from ini template, for better user experience
+            txtTrainCSVFile = params_csv[0][1]
+            if not os.path.isfile(txtTrainCSVFile):
+                txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_lilith_35_hours.csv')
+
+            txtMonitoringCSVFile = params_csv[1][1]
+            if not os.path.isfile(txtMonitoringCSVFile):
+                txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_hanna_35_hours.csv')
+
+            self.txtTrainCSVFile_Text.set(txtTrainCSVFile)
+            self.txtMonitoringCSVFile_Text.set(txtMonitoringCSVFile)
             if params_csv[2][1] ==  '1':
                 self.btnMonitoringCSVOnOff.select()
                 self.txtMonitoringCSVFile.configure(state = 'normal')
