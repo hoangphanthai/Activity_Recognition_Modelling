@@ -54,14 +54,14 @@ With these initiatives, it is possible to train a model from mixed data of multi
   <img src="references/Data_import.png"  title="hover text">
 </p>
 
-* **Database credentials file path** section stores the path to the ini file that contains the database credentials (e.g., the template is the file db_credentials.ini mentioned above).  
+* **Database credentials file path** section stores the path to the ini file that contains the database credentials (e.g., the template is the file **db_credentials.ini** mentioned above).  
 * **Host, Port, Database, User, Password** stores database connection and user credentials which are loaded (updated) from (to) ini file in Database credentials file path section.
 * **Train_Valid_Test table** stores the name of db table which is used for the train/valid and test phrase. This table structure meets the requirements in Table in 1.E.
 * **Statistics_Monitoring table** stores the name of db table which is used for the Statistics/Monitoring phrase. This table structure meets the requirements in Table in section 1.E. **If the checkbox is unchecked, then it only runs training/validation and testing phrase**
 * **Table to store result** stores the result for each experiment, it is automatically created if not exists on the database system. Every derived model will be saved into this table as a new record. The structure of this table is described in Structure of the result table.
 
 #### - The csv files importing mode
-This is for those who don’t bother to create a PostgreSQL database. The two csv files **Train_Valid_Test** and **Statistics_Monitoring** serve the same functions as the two database tables mentioned previously.
+This is for those who don’t bother to set up a PostgreSQL database. The two csv files **Train_Valid_Test** and **Statistics_Monitoring** serve the same functions as the two database tables mentioned previously.
 
 ### B. Model training screen  
 <p align="center">
@@ -70,13 +70,13 @@ This is for those who don’t bother to create a PostgreSQL database. The two cs
 
 * **Classification problem**: The application supports building two types of problem, e.i. multi-class and binary classification. For binary classification, the application supports building model which classifies one main label (e.g. **Liegen**) against some other **Non-main labels (Gehen, Grasen, Stehen)**. In this case, the labelled training samples will be distributed at a **3:1:1:1** proportion  
 
-* **Data resampling**: User can either choose **Keep original data** to **resample** the data with given sampling rates range.  
+* **Data resampling**: User can either choose **Keep original data** to **resample the data** with sampling rates in given range.  
 
 * **Window settings**: With the setting like in the 2.B. Model training screen, it will run with the window sizes of 5, 7 and 9 seconds.  The **Train (Test) stride** is set to 100% meaning all data in **Train_Valid_Test table** will be used for Train/Valid and Test phrase. The **Monitoring stride** option is set to 200% meaning only half of data in **Statistics_Monitoring table** will be used for Statistics/Monitoring metrics calculations.  
 
 * **Functions Select** and **Select axes to be applied** help to choose features for the classifier(s) selected in the Classifiers section underneath. The number of features = number of functions * number of axes.  
 
-* After selecting **classifier(s)** and **Kfold** option, just click **Model fitting** button for running **Train_Valid_Test** phrase, the result will display in console, log into *“Experiment_Result.txt”* file in **csv_out** folder and update to Database (if the db tables are selected).  
+* After selecting **classifier(s)** and **Kfold** option, just click **Model fitting** button for running **Train_Valid_Test** phrase, the result will display in console, log into *“Experiment_Result.txt”* file in **csv_out** folder and update to Database (in casee the database import mode is selected).  
 
 * **Monitoring setting**: After fitting the model, user can view the Statistics and Monitoring metrics with the two buttons Statistics and Monitoring. These two buttons will be disabled if the checkbox in the Figure in 2.A. data import is unchecked.  
 
