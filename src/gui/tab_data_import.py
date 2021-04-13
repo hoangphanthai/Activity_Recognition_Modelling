@@ -329,28 +329,33 @@ class TabDataImport(ttk.Frame):
     def monitoringDBSelectDeselect(self):
         if self.selectMonitoringActivityOnOff.get() ==  0:
             self.txtMonitoringTable.configure(state = 'disabled')           
+            self.training_tab.txtWindowSimuStride.configure(state = 'disabled')
             globals.monitoring_mode = False
         else:
             self.txtMonitoringTable.configure(state = 'normal')
+            self.training_tab.txtWindowSimuStride.configure(state = 'normal')
             globals.monitoring_mode = True
   
     def monitoringCSVSelectDeselect(self):
         if self.selectMonitoringCSVActivityOnOff.get() ==  0:
+
             self.txtMonitoringCSVFile.configure(state = 'disabled')
             self.btnIniMonitoringCSV.configure(state = 'disabled')
             self.training_tab.txtWindowSimuStride.configure(state = 'disabled')
-            self.training_tab.btnStatics.configure(state = 'disabled')
-            self.training_tab.btnMonitorDist.configure(state = 'disabled')
-            self.training_tab.btnSimulatition.configure(state = 'disabled')
+
+            # self.training_tab.btnStatics.configure(state = 'disabled')
+            # self.training_tab.btnMonitorDist.configure(state = 'disabled')
+            # self.training_tab.btnSimulatition.configure(state = 'disabled')
             globals.monitoring_mode = False
 
         else:
             self.txtMonitoringCSVFile.configure(state = 'normal')
             self.btnIniMonitoringCSV.configure(state = 'normal')
             self.training_tab.txtWindowSimuStride.configure(state = 'normal')
-            self.training_tab.btnStatics.configure(state = 'normal')
-            self.training_tab.btnMonitorDist.configure(state = 'normal')
-            self.training_tab.btnSimulatition.configure(state = 'normal')
+
+            # self.training_tab.btnStatics.configure(state = 'normal')
+            # self.training_tab.btnMonitorDist.configure(state = 'normal')
+            # self.training_tab.btnSimulatition.configure(state = 'normal')
             globals.monitoring_mode = True            
 
     def connect_import_clicked(self):
@@ -359,7 +364,6 @@ class TabDataImport(ttk.Frame):
         data_fetching_successful = False
 
         if globals.data_from_db:
-
             self.lblNotification.configure(font = ('Sans', '10', 'bold'), text = 'Connecting to the database and fetching data...')
             
             # Setting table names and values from input form
@@ -382,6 +386,11 @@ class TabDataImport(ttk.Frame):
             data_fetching_successful = data_importer.get_training_monitoring_data_from_db()
             if data_fetching_successful:
                 self.lblNotification.configure(text = 'Finished data importing!')
+           
+            if self.selectMonitoringActivityOnOff.get() == 0:
+                globals.monitoring_mode = False
+            else:
+                globals.monitoring_mode = True                
 
         else:
             self.lblNotification.configure(font = ('Sans', '10', 'bold'), text = 'Reading data from CSV files...')
@@ -395,6 +404,11 @@ class TabDataImport(ttk.Frame):
             data_fetching_successful = data_importer.get_training_monitoring_data_from_csv_file()
             if data_fetching_successful:
                 self.lblNotification.configure(text = 'Finished data importing!')
+
+            if self.selectMonitoringCSVActivityOnOff.get() ==  0:
+                globals.monitoring_mode = False
+            else:
+                globals.monitoring_mode = True
 
         if data_fetching_successful:
                 
@@ -423,7 +437,8 @@ class TabDataImport(ttk.Frame):
             if self.rdoDataSource.get() == 1:
                 data_source_select_params['dbisselected'] = '1'
             else:    
-                data_source_select_params['dbisselected'] = '0'    
+                data_source_select_params['dbisselected'] = '0'
+
 
             # Update cridentials for database connection
             db_credentials_params = {}
@@ -432,12 +447,12 @@ class TabDataImport(ttk.Frame):
             db_credentials_params['database'] = self.txtDB_text.get()
             db_credentials_params['traintable'] = self.txtTrainTable_text.get()
             db_credentials_params['monitortable'] = self.txtMonitoringTable_Text.get()
+
             if self.selectMonitoringActivityOnOff.get() == 0:
                 db_credentials_params['selectmonitoring'] = '0'
-                globals.monitoring_mode = False
             else:
                 db_credentials_params['selectmonitoring'] = '1'
-                globals.monitoring_mode = True
+                
             db_credentials_params['resulttable'] = self.txtResultTable_Text.get()
             db_credentials_params['user'] = self.txtUser_text.get()
             db_credentials_params['password'] = self.txtPwd_text.get()
@@ -448,14 +463,11 @@ class TabDataImport(ttk.Frame):
 
             if self.selectMonitoringCSVActivityOnOff.get() ==  0:
                 csv_paths_params['selectmonitoringfile'] = '0'
-                globals.monitoring_mode = False
             else:
                 csv_paths_params['selectmonitoringfile'] = '1'
-                globals.monitoring_mode = True
 
             # Update import_data_controls_init into db credential ini file
             ini_file.update_import_data_controls_init_params(self.txtDBini_text.get(),data_source_select_params,db_credentials_params,csv_paths_params)
-            
             # Setting focus to the training_tab
             self.master.select(1)
 
