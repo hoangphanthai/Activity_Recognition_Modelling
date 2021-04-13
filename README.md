@@ -61,7 +61,7 @@ The application supports importing data from either database or csv files
 * **Table to store result** stores the result for each experiment, it is automatically created if not exists on the database system. Every derived model will be saved into this table as a new record. The structure of this table is described in Structure of the result table.
 
 #### - The csv files importing mode
-This is for those who don’t bother to set up a PostgreSQL database. The two csv files **Train_Valid_Test** and **Statistics_Monitoring** serve the same functions as the two database tables mentioned previously.
+This is for those who don’t bother to set up a PostgreSQL database. The two csv files **Train_Valid_Test** and **Statistics_Monitoring** serve the same functions as the two database tables mentioned previously. Some of the sample input data files could be found in the [**datasets**](https://github.com/hoangphanthai/Activity_Recognition_Modelling/tree/main/datasets) folder.
 
 ### B. Model training screen  
 <p align="center">
