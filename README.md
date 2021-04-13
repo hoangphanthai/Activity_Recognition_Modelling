@@ -67,13 +67,46 @@ This is for those who don’t bother to create a PostgreSQL database. The two cs
 <p align="center">
   <img src="references/Training_Tab.png"  title="hover text">
 </p>
-* **Classification problem**: The application supports building two types of problem, e.i. multi-class and binary classification. For binary classification, the application supports building model which classifies one main label (e.g. **Liegen**) against some other **Non-main labels (Gehen, Grasen, Stehen)**. In this case, the labelled training samples will be distributed at a **3:1:1:1** proportion
-* **Data resampling**: User can either choose **Keep original data** to **resample** the data with given sampling rates range.
-* **Window settings**: With the setting like in the 
-Figure 3, it will run with the window sizes of 5, 7 and 9 seconds.  The **Train (Test) stride** is set to 100% meaning all data in **Train_Valid_Test table** will be used for Train/Valid and Test phrase. The **Monitoring stride** option is set to 200% meaning only half of data in **Statistics_Monitoring table** will be used for Statistics/Monitoring metrics calculations.
-* **Functions Select** and **Select axes to be applied** help to choose features for the classifier(s) selected in the Classifiers section underneath. The number of features = number of functions * number of axes.
-* After selecting **classifier(s)** and **Kfold** option, just click **Model fitting** button for running **Train_Valid_Test** phrase, the result will display in console, log into *“Experiment_Result.txt”* file in **csv_out** folder and update to Database (if the db tables are selected).
-* **Monitoring setting**: After fitting the model, user can view the Statistics and Monitoring metrics with the two buttons Statistics and Monitoring. These two buttons will be disabled if the checkbox in the Figure 2 is unchecked.
-Because the statistics and monitoring metrics are generated under each classifier at a specific sampling rate and window size, user needs to choose these three options in the **Monitoring setting** section. It is **important** to select these options that fall into one combination of sampling rates and window sizes (types) selected previously.
 
-To be more clearly, settings in Figure 3 enables user to train the model with sampling rates of 1, 3, 5, 7, 9 (Hz) in combination with window sizes of 5, 7, 9 (seconds) under 4 classifiers (5 * 3 * 4 = 60 combinations). As a result, in the Monitoring setting section, if user selects Sampling rate of 10Hz (which is not in the 60 combinations) then it does not show the statistics/monitoring metrics.
+* **Classification problem**: The application supports building two types of problem, e.i. multi-class and binary classification. For binary classification, the application supports building model which classifies one main label (e.g. **Liegen**) against some other **Non-main labels (Gehen, Grasen, Stehen)**. In this case, the labelled training samples will be distributed at a **3:1:1:1** proportion  
+
+* **Data resampling**: User can either choose **Keep original data** to **resample** the data with given sampling rates range.  
+
+* **Window settings**: With the setting like in the 2.B. Model training screen, it will run with the window sizes of 5, 7 and 9 seconds.  The **Train (Test) stride** is set to 100% meaning all data in **Train_Valid_Test table** will be used for Train/Valid and Test phrase. The **Monitoring stride** option is set to 200% meaning only half of data in **Statistics_Monitoring table** will be used for Statistics/Monitoring metrics calculations.  
+
+* **Functions Select** and **Select axes to be applied** help to choose features for the classifier(s) selected in the Classifiers section underneath. The number of features = number of functions * number of axes.  
+
+* After selecting **classifier(s)** and **Kfold** option, just click **Model fitting** button for running **Train_Valid_Test** phrase, the result will display in console, log into *“Experiment_Result.txt”* file in **csv_out** folder and update to Database (if the db tables are selected).  
+
+* **Monitoring setting**: After fitting the model, user can view the Statistics and Monitoring metrics with the two buttons Statistics and Monitoring. These two buttons will be disabled if the checkbox in the Figure 2 is unchecked.  
+
+Because the statistics and monitoring metrics are generated under each classifier at a specific sampling rate and window size, user needs to choose these three options in the **Monitoring setting** section. It is **important** to select these options that fall into one combination of sampling rates and window sizes (types) selected previously.  
+
+To be more clearly, settings in 2,B. Model training screen enables user to train the model with sampling rates of 1, 3, 5, 7, 9 (Hz) in combination with window sizes of 5, 7, 9 (seconds) under 4 classifiers (5 * 3 * 4 = 60 combinations). As a result, in the **Monitoring setting** section, if user selects **Sampling rate** of 10Hz (which is not in the 60 combinations) then it does not show the statistics/monitoring metrics.  
+
+## 3. Statics helps to visualize “The Good" and "The Bad” models
+### A. The Good model
+<p align="center">
+  <img src="reports/statics/TheGood.png"  title="hover text">
+</p>  
+
+### B. The Bad model
+
+<p align="center">
+  <img src="reports/statics/TheBad.png"  title="hover text">
+</p>  
+
+### C. The Ugly bug
+... is missing  
+
+## 4. Other important notes
+### A. How to train/valid/test on multiple (mixed) cows’ data and testing on another unseen cows?
+To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test table** containing data from cow 1,2,3 then create the **Statistics_Monitoring table** containing sensor data of cow 4. The structure of these tables must meet the requirements in 1.E. The result will be shown in console, updated into database (if selected) and logged into “Experiment_Result.txt” file located in csv_out folder as described in 1.F.  
+
+### B. CSV log files
+<p align="center">
+  <img src="references/csv_out_folder.png"  title="hover text">
+</p>  
+ 
+With a specific sampling rate and window size (type), the text file “Experiment_Result.txt” will be created to store the experiment results for that configuration. This .txt file is created in a sub folder of **csv_out** folder as shown in the Figure below. This sub folder is created in every run (every click on **Model fitting** button).
+Additionally, for each configuration (e.g., sampling rate, window size/stride) the data set regarding train_valid_test and monitoring can be logged into .csv file for checking of correctness in features calculation. To enable .csv files saving, in the app.ini file/section **[GLOBAL SETTINGS]**, just set the variable csvsaving to 1 (Or csvsaving = 1).
