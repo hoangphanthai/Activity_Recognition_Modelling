@@ -1,15 +1,14 @@
 # Activity Recognition Modelling
 ## 1. Project Description
-### A. Overall goal  
-* The project is about building and evaluating [Activity Recognition](https://en.wikipedia.org/wiki/Activity_recognition/) Models from triaxial inertial sensors data carried by objects (cattle in this case).  
-* The Python GUI project is developed as the programming part for fulfilling the thesis *“Evaluating the Impact of Sampling on Activity Monitoring in Dairy Cattle”* in [MSc. Software Systems Science program](https://www.uni-bamberg.de/ma-isosysc/) at the [Chair of Mobile Systems](https://www.uni-bamberg.de/mobi/) - the University of Bamberg  
+### A. Introduction  
+* The Python GUI is about building and evaluating [Activity Recognition](https://en.wikipedia.org/wiki/Activity_recognition/) Models from triaxial inertial sensors data carried by objects (cattle in this case). The project, however, can be used to build models in recognizing human activities, too.   
+* This is developed as the programming part for fulfilling the thesis *“Evaluating the Impact of Sampling on Activity Monitoring in Dairy Cattle”* in [MSc. Software Systems Science program](https://www.uni-bamberg.de/ma-isosysc/) at the [Chair of Mobile Systems](https://www.uni-bamberg.de/mobi/) - the University of Bamberg  
 * This is also a technical part of the FutureIoT/Rindertracking project - https://www.futureiot.de/portfolio/rindertracking/  
 * **Publication**: L. Schmeling, G. Elmamooz, P. T. Hoang, A. Kozar, D. Nicklas, M. Suenkel, S. Thurner, and E. Rauch (2020). *Sensor-based Monitoring of Lying Behaviour in Dairy Cows on Pasture*. Computers and Electronics in Agriculture (**in revision**).  
 
 ### B. Problem Context
 * Most activity tracking apps installed on wearable devices are relying on sensor data for the purpose of correctly predicting the carrier's activity. The common problem of these devices is the short battery duration, which is mainly due to the high frequency of sensor data updates and computing expense. Practically, there is a trade-off between the prediction accuracy and the high computing and frequency of data update, not to mention data redundancy.  
 * This project is to find the answer to the question of how often and how much data a model should consume while remaining significant accuracy in predicting a particular set of cattle activities. This is more specifically to find the most contributing sensor axes and at what sampling rate, and how large a window of sampled data should be used.  
-* The project, however, can be used to build models in recognizing human activities, too.  
 
 ### C. Development Language and running Environment
 * The project is developed with Python 3.8 (64 bit), and **WindowOS** is the recommended running environment.  The GUI is distorted on MacOS as the tkinter library is not well supported by the system. The author is planning to convert this project into the web version.
@@ -85,18 +84,18 @@ Because the statistics and monitoring metrics are generated under each classifie
 To be more clearly, settings in 2,B. Model training screen enables user to train the model with sampling rates of 1, 3, 5, 7, 9 (Hz) in combination with window sizes of 5, 7, 9 (seconds) under 4 classifiers (5 * 3 * 4 = 60 combinations). As a result, in the **Monitoring setting** section, if user selects **Sampling rate** of 10Hz (which is not in the 60 combinations) then it does not show the statistics/monitoring metrics.  
 
 ## 3. Statics helps to visualize “The Good" and "The Bad” models
-### A. The Good model
+### A. The Good
 <p align="center">
   <img src="reports/statics/TheGood.png"  title="hover text">
 </p>  
 
-### B. The Bad model
+### B. The Bad
 
 <p align="center">
   <img src="reports/statics/TheBad.png"  title="hover text">
 </p>  
 
-### C. The Ugly bug
+### C. The Ugly {bug}
 ... is missing  
 
 ## 4. Other important notes
