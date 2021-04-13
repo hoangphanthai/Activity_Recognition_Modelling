@@ -110,3 +110,50 @@ To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test tabl
  
 With a specific sampling rate and window size (type), the text file “Experiment_Result.txt” will be created to store the experiment results for that configuration. This .txt file is created in a sub folder of **csv_out** folder as shown in the Figure below. This sub folder is created in every run (every click on **Model fitting** button).
 Additionally, for each configuration (e.g., sampling rate, window size/stride) the data set regarding train_valid_test and monitoring can be logged into .csv file for checking of correctness in features calculation. To enable .csv files saving, in the app.ini file/section **[GLOBAL SETTINGS]**, just set the variable **csvsaving** to 1 (Or csvsaving = 1).
+
+## 5. The experiment result table on database
+In the case user select importing data from database, the result of the experiment will be updated to the **Table to store result** given in section 2.A.  
+The structure of this table is as follow:  
+
+| Column name  | Data type | Explanation |
+| ------------- | ------------- | ------------- |
+| model_title | text | This column is created for the purpose of showing the model to the end-user. The default value is an empty string, when it is given a string then it will be shown to the end-user. |
+| model_init_name | text | The initialised name of the model, after a model is trained then its name is set at the default format: [date_of_creation] _[hhmmss]_username_[Binary/Multi]_[name_of_algorithm]  An example is “20200520_005954_thaihp_Binary_RandomForest” |
+| model_binary_content | bytea | The content of the model in binary format |
+| model_comments | text | User comments of the model |
+| train_table | text | The name of table for training |
+| monitor_table | text | Table for the Staticstic_Monitoring metrics |
+| no_of_predicted_classes | integer | Number of classes to be classified |
+| list_of_predicted_classes | text | List of classes to be classified |
+| original_sample_rate_in_hz | integer | The original sampling rate of the training data (train_table) |
+| no_of_original_train_data_points | integer | Number of data points in the train_table |
+| resampled_rate_in_hz | integer | resampling rate (if user chooses resample data in Figure 3 of readme.pdf file) |
+| no_of_resampled_train_data_points | integer | The number of data points of training data after resampling |
+| no_of_instances_for_each_class_in_resampled_train_table | integer | Number of instances for each class in the (resampled) training data |
+| algorithm | text | The classifier selected |
+| no_of_functions | integer | Number of functions |
+| list_of_functions | text | List of functions |
+| no_of_axes | integer | Number of axes selected for the training |
+| list_of_axes | text | List of axes selected for the training |
+| window_size | integer | The window size (in milliseconds) in of training/monitoring phrase  |
+| window_stride | text | The window stride for training phrase only |
+| k_fold | integer | K fold |
+| accuracy_train_valid | real | Accuracy of train_valid phrase |
+| precision_train_valid | real | Precision of train_valid phrase |
+| recall_train_valid | real | Recall of train_valid phrase |
+| specificity_train_valid | real | Specificity of train_valid phrase |
+| f1_train_valid | real | F1 score of train_valid phrase |
+| accuracy_test | real | Accuracy on Test set (30% of the training data) |
+| precision_test | real | Precision on Test set |
+| recall_test | real | Recall on Test set |
+| specificity_test | real | Specificity of Test set |
+| f1_test | real | F1 score of Test set |
+| monitoring_window_stride | text | The window stride for monitoring phrase |
+| accuracy_monitor | real | Accuracy on Monitoring data |
+| precision_monitor | real | Precision on Monitoring data |
+| recall_monitor | real | Recall on Monitoring data |
+| specificity_monitor | real | Specificity on Monitoring data |
+| f1_monitor | real | F1 score on Monitoring data |
+| start_time | timestamp | Starting time of the run |
+| end_time | timestamp | Ending time of the run |
+| running_time_in_minutes | text | The duration of the experiment |
