@@ -4,7 +4,7 @@
 * The project is about building and evaluating [Activity Recognition](https://en.wikipedia.org/wiki/Activity_recognition/) Models from triaxial inertial sensors data carried by objects (cattle in this case).  
 * The Python GUI project is developed as the programming part for fulfilling the thesis *“Evaluating the Impact of Sampling on Activity Monitoring in Dairy Cattle”* in [MSc. Software Systems Science program](https://www.uni-bamberg.de/ma-isosysc/) at the [Chair of Mobile Systems](https://www.uni-bamberg.de/mobi/) - the University of Bamberg  
 * This is also a technical part of the FutureIoT/Rindertracking project - https://www.futureiot.de/portfolio/rindertracking/  
-* Publication: L. Schmeling, G. Elmamooz, P. T. Hoang, A. Kozar, D. Nicklas, M. Suenkel, S. Thurner, and E. Rauch (2020). *Sensor-based Monitoring of Lying Behaviour in Dairy Cows on Pasture*. Computers and Electronics in Agriculture (**in revision**).  
+* **Publication**: L. Schmeling, G. Elmamooz, P. T. Hoang, A. Kozar, D. Nicklas, M. Suenkel, S. Thurner, and E. Rauch (2020). *Sensor-based Monitoring of Lying Behaviour in Dairy Cows on Pasture*. Computers and Electronics in Agriculture (**in revision**).  
 
 ### B. Problem Context
 * Most activity tracking apps installed on wearable devices are relying on sensor data for the purpose of correctly predicting the carrier's activity. The common problem of these devices is the short battery duration, which is mainly due to the high frequency of sensor data updates and computing expense. Practically, there is a trade-off between the prediction accuracy and the high computing and frequency of data update, not to mention data redundancy.  
@@ -37,10 +37,10 @@ After researching the previous studies, the workflow is implemented as shown bel
 | az | double precision | Accelerometer z axis signal value  |
 | timestamp | bigint | Timestamp in Unix Epoch time format  |
 
-With these initiatives, it is possible to train a model from mixed data of multiple cattles by storing sensor data of difference cattles in the **Train_Valid_Test** table (distinguished by cattle_id)  
+With these initiatives, it is possible to train a model from mixed data of multiple cattles by storing sensor data of difference cattles in the **Train_Valid_Test** table (distinguished by **cattle_id**)  
 
 ### F. Repository Structure
-| Folder/File  | Purpose |
+| Folder/File | Purpose |
 | ------------- | ------------- |
 | csv_out | Folder containing csv output files / experiment result for each run |
 | src | Main source code |
@@ -56,7 +56,7 @@ With these initiatives, it is possible to train a model from mixed data of multi
 
 * **Database credentials file path** section stores the path to the ini file that contains the database credentials (e.g., the template is the file db_credentials.ini mentioned above).  
 * **Host, Port, Database, User, Password** stores database connection and user credentials which are loaded (updated) from (to) ini file in Database credentials file path section.
-* **Train_Valid_Test table** stores the name of db table which is used for the train/valid and test phrase. This table structure meets the requirements in Table 1.
+* **Train_Valid_Test table** stores the name of db table which is used for the train/valid and test phrase. This table structure meets the requirements in Table in 1.E.
 * **Statistics_Monitoring table** stores the name of db table which is used for the Statistics/Monitoring phrase. This table structure meets the requirements in Table in section 1.E. **If the checkbox is unchecked, then it only runs training/validation and testing phrase**
 * **Table to store result** stores the result for each experiment, it is automatically created if not exists on the database system. Every derived model will be saved into this table as a new record. The structure of this table is described in Structure of the result table.
 
@@ -78,7 +78,7 @@ This is for those who don’t bother to create a PostgreSQL database. The two cs
 
 * After selecting **classifier(s)** and **Kfold** option, just click **Model fitting** button for running **Train_Valid_Test** phrase, the result will display in console, log into *“Experiment_Result.txt”* file in **csv_out** folder and update to Database (if the db tables are selected).  
 
-* **Monitoring setting**: After fitting the model, user can view the Statistics and Monitoring metrics with the two buttons Statistics and Monitoring. These two buttons will be disabled if the checkbox in the Figure 2 is unchecked.  
+* **Monitoring setting**: After fitting the model, user can view the Statistics and Monitoring metrics with the two buttons Statistics and Monitoring. These two buttons will be disabled if the checkbox in the Figure in 2.A. data import is unchecked.  
 
 Because the statistics and monitoring metrics are generated under each classifier at a specific sampling rate and window size, user needs to choose these three options in the **Monitoring setting** section. It is **important** to select these options that fall into one combination of sampling rates and window sizes (types) selected previously.  
 
@@ -101,7 +101,7 @@ To be more clearly, settings in 2,B. Model training screen enables user to train
 
 ## 4. Other important notes
 ### A. How to train/valid/test on multiple (mixed) cows’ data and testing on another unseen cows?
-To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test table** containing data from cow 1,2,3 then create the **Statistics_Monitoring table** containing sensor data of cow 4. The structure of these tables must meet the requirements in 1.E. The result will be shown in console, updated into database (if selected) and logged into “Experiment_Result.txt” file located in csv_out folder as described in 1.F.  
+To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test table** containing data from cow 1,2,3 then create the **Statistics_Monitoring table** containing sensor data of cow 4. The structure of these tables must meet the requirements in 1.E. The result will be shown in console, updated into database (if selected) and logged into “Experiment_Result.txt” file located in **csv_out** folder as described in 1.F.  
 
 ### B. CSV log files
 <p align="center">
@@ -109,4 +109,4 @@ To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test tabl
 </p>  
  
 With a specific sampling rate and window size (type), the text file “Experiment_Result.txt” will be created to store the experiment results for that configuration. This .txt file is created in a sub folder of **csv_out** folder as shown in the Figure below. This sub folder is created in every run (every click on **Model fitting** button).
-Additionally, for each configuration (e.g., sampling rate, window size/stride) the data set regarding train_valid_test and monitoring can be logged into .csv file for checking of correctness in features calculation. To enable .csv files saving, in the app.ini file/section **[GLOBAL SETTINGS]**, just set the variable csvsaving to 1 (Or csvsaving = 1).
+Additionally, for each configuration (e.g., sampling rate, window size/stride) the data set regarding train_valid_test and monitoring can be logged into .csv file for checking of correctness in features calculation. To enable .csv files saving, in the app.ini file/section **[GLOBAL SETTINGS]**, just set the variable **csvsaving** to 1 (Or csvsaving = 1).
