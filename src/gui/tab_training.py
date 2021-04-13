@@ -1504,10 +1504,16 @@ class TabTraining(ttk.Frame):
         self.btnSimulatition.grid(row = 2, column = 5, padx = 8, pady = 3, sticky= tk.W)
         # For live plotting <=
 
-        self.btnFitting = tk.Button(self, text='Model fitting', bg='black', fg='white',  command = self.models_fitting_clicked, height = 2, width = 10)
+        # self.btnFitting = tk.Button(self, text='Model fitting', bg='black', fg='white',  command = self.models_fitting_clicked, height = 2, width = 10)
+        # self.btnFitting.place(x=830, y=410)
+
+        # self.btnStatics = tk.Button(self, text='Statics', bg='red', fg='white', command = self.statics_clicked, height = 2, width = 10)
+        # self.btnStatics.place(x=830, y=460)    
+
+        self.btnFitting = tk.Button(self, text='Model fitting', bg='gold',  command = self.models_fitting_clicked, height = 2, width = 10)
         self.btnFitting.place(x=830, y=410)
 
-        self.btnStatics = tk.Button(self, text='Statics', bg='red', fg='white', command = self.statics_clicked, height = 2, width = 10)
+        self.btnStatics = tk.Button(self, text='Statics', bg='gold', command = self.statics_clicked, height = 2, width = 10)
         self.btnStatics.place(x=830, y=460)
 
         self.btnMonitorDist = tk.Button(self, text='Monitoring', bg='gold', command = self.monitoring_dist_clicked, height = 2, width = 10)
