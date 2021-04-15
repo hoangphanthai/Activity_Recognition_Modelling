@@ -1,0 +1,67 @@
+Train_Valid_Test DB table: goat02_standing_walking_grazing_17mins
+Monitoring         DB table: goat03_standing_walking_grazing_17mins
+window_5000ms_stride_5000ms
+Labels to predict: grazing standing walking
+Functions list      : ['min', 'max', 'mean', 'median', 'stdev', 'IQR', 'RMS', 'MCR', 'Kurt', 'Skew', 'Energy', 'PeakFreq', 'FreqEntrpy', 'FirstCpn', 'SecondCpn', 'ThirdCpn', 'FourthCpn', 'FifthCpn']
+Axes list             : ['gyrMag', 'accMag']
+------------------Round 1------------------
+Random_Forest accuracy:             0.9762
+Decision_Tree accuracy:             0.9524
+------------------Round 2------------------
+Random_Forest accuracy:             0.9762
+Decision_Tree accuracy:                1.0
+------------------Round 3------------------
+Random_Forest accuracy:                1.0
+Decision_Tree accuracy:             0.9524
+------------------Round 4------------------
+Random_Forest accuracy:             0.9762
+Decision_Tree accuracy:             0.9524
+------------------Round 5------------------
+Random_Forest accuracy:             0.9762
+Decision_Tree accuracy:             0.9762
+------------------Round 6------------------
+Random_Forest accuracy:             0.9762
+Decision_Tree accuracy:                1.0
+------------------Round 7------------------
+Random_Forest accuracy:                1.0
+Decision_Tree accuracy:                1.0
+------------------Round 8------------------
+Random_Forest accuracy:                1.0
+Decision_Tree accuracy:             0.9524
+------------------Round 9------------------
+Random_Forest accuracy:              0.881
+Decision_Tree accuracy:              0.881
+------------------Round 10------------------
+Random_Forest accuracy:             0.9524
+Decision_Tree accuracy:             0.9524
+
+Train_Valid 10-fold average accuracy of Random_Forest        0.9714
+Train_Valid 10-fold average accuracy of Decision_Tree        0.9619
+-------------------------------------------------------------------------
+Accuracy of Random_Forest on Test data: 0.9389
+Random_Forest Confusion matrix on Test data
+Predicted ↓grazing standing walking ↓
+→True grazing [53  1  6]
+→True standing [ 0 60  0]
+→True walking [ 4  0 56]
+-------------------------------------------------------------------------
+Accuracy of Decision_Tree on Test data: 0.9333
+Decision_Tree Confusion matrix on Test data
+Predicted ↓grazing standing walking ↓
+→True grazing [53  1  6]
+→True standing [ 0 60  0]
+→True walking [ 5  0 55]
+------------------------------------------------------
+Accuracy of Random_Forest on monitoring data: 0.7733
+Random_Forest Confusion matrix on monitoring data
+Predicted ↓grazing standing walking ↓
+→True grazing [36  6 58]
+→True standing [  0 100   0]
+→True walking [ 4  0 96]
+------------------------------------------------------
+Accuracy of Decision_Tree on monitoring data: 0.8167
+Decision_Tree Confusion matrix on monitoring data
+Predicted ↓grazing standing walking ↓
+→True grazing [48  5 47]
+→True standing [  0 100   0]
+→True walking [ 3  0 97]
