@@ -83,6 +83,13 @@ class TabTraining(ttk.Frame):
         
             self.convert_features_into_json_content()
 
+            # Because the binary_mode will changes the non-main labels into 'Non-...'
+            if globals.binary_mode:
+                self.label_set_origin = globals.label_set.copy()
+                log_message('Binary classification with main label ' + globals.main_label)
+            else:
+                log_message('Multi-class classification')
+
             train_valid_test_data_filtered_by_selected_labels = globals.train_valid_test_data_frame.loc[
                 globals.train_valid_test_data_frame['label'].isin(globals.label_set)].sort_values(by=['timestamp'], ascending=True)
 
@@ -95,6 +102,7 @@ class TabTraining(ttk.Frame):
                 monitoring_data_label_set = pd.Series(np.unique(np.array(monitoring_data_filtered_by_selected_labels['label']).tolist()))
                 monitoring_data_label_set = monitoring_data_label_set.sort_values(ascending=True)
                 globals.monitoring_mode = monitoring_data_label_set.equals(globals.label_set)
+
                 if not globals.monitoring_mode:
                     messagebox.showinfo('Alert', 'The activities (labels) list in monitoring data is not matched with that from training data. Please re-select the datasets')
                     return
@@ -115,12 +123,7 @@ class TabTraining(ttk.Frame):
             self.kfold = int(self.cboKfold.get())
             
 
-            # Because the binary_mode will changes the non-main labels into 'Non-...'
-            if globals.binary_mode:
-                self.label_set_origin = globals.label_set.copy()
-                log_message('Binary classification with main label ' + globals.main_label)
-            else:
-                log_message('Multi-class classification')
+        
 
             self.no_of_original_train_valid_test_data_points = len(train_valid_test_data_filtered_by_selected_labels.index)   
 

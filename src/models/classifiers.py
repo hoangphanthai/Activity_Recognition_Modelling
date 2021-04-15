@@ -116,7 +116,7 @@ class CLS:
             y_monitor_pred_rf_temp = self.clf.predict(X_monitor_temp)
             self.monitor_metrics['accu'] = round(metrics.accuracy_score(y_monitor_temp, y_monitor_pred_rf_temp), 4)
             
-            print(self.name + ' - Accuracy on Monitor data ' + str(self.monitor_metrics['accu']))
+            print(self.name + ' - Accuracy on Monitoring data ' + str(self.monitor_metrics['accu']))
 
             if globals.label_set.size == 2:
                 self.monitor_metrics['prec'] = round(metrics.precision_score(y_monitor_temp, y_monitor_pred_rf_temp, average = 'binary', pos_label = globals.label_set[0]), 4)

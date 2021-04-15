@@ -172,11 +172,13 @@ class TabDataImport(ttk.Frame):
             # Check the existing of the input files otherwise set the ones from ini template, for better user experience
             txtTrainCSVFile = params_csv[0][1]
             if not os.path.isfile(txtTrainCSVFile):
-                txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_lilith_35_hours.csv')
+                # txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_lilith_35_hours.csv')
+                txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'GoatData','goat02_standing_walking_grazing_17mins.csv')
 
             txtMonitoringCSVFile = params_csv[1][1]
             if not os.path.isfile(txtMonitoringCSVFile):
-                txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_hanna_35_hours.csv')
+                # txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_hanna_35_hours.csv')
+                txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'GoatData', 'goat03_standing_walking_grazing_17mins.csv')
 
             self.txtTrainCSVFile_Text.set(txtTrainCSVFile)
             self.txtMonitoringCSVFile_Text.set(txtMonitoringCSVFile)
@@ -369,10 +371,10 @@ class TabDataImport(ttk.Frame):
             # Setting table names and values from input form
             globals.experiment_result_table_name = self.txtResultTable_Text.get()
             globals.training_table_name = self.txtTrainTable_text.get() 
-            globals.train_valid_data_set_name = globals.training_table_name[:18]
+            globals.train_valid_data_set_name = globals.training_table_name
 
             globals.monitoring_table_name = self.txtMonitoringTable_Text.get()
-            globals.monitoring_data_set_name = globals.monitoring_table_name[:18] 
+            globals.monitoring_data_set_name = globals.monitoring_table_name 
             
             # Reading connection parameters
             params_db = {}
