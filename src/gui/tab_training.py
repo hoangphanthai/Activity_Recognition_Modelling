@@ -16,7 +16,6 @@ from tkinter import messagebox
 
 import globals
 from globals import log_message
-# from models import classifiers, features
 from models import classifiers
 from data import ini_file, data_exporter, data_proccessor, data_resampling
 from visualisation import plot
@@ -41,10 +40,8 @@ class TabTraining(ttk.Frame):
 
     def statics_clicked(self):
         if self.validate_monitoring_run():
-            # print(len(monitoring_data_frame_resampled_monitor))
-            # print(len(monitoring_data_fr))
             plot.statistics_metrics_show(globals.monitoring_data_frame_resampled_monitor, globals.monitoring_data_fr, globals.curr_monitoring_sampling_rate)
-   
+
 
     def monitoring_dist_clicked(self):
         if self.validate_monitoring_run():
@@ -84,8 +81,10 @@ class TabTraining(ttk.Frame):
             self.convert_features_into_json_content()
 
             # Because the binary_mode will changes the non-main labels into 'Non-...'
+            globals.label_set = self.label_set_origin.copy()
+            globals.monitoring_data_frame = globals.monitoring_data_frame_origin.copy()
+
             if globals.binary_mode:
-                self.label_set_origin = globals.label_set.copy()
                 log_message('Binary classification with main label ' + globals.main_label)
             else:
                 log_message('Multi-class classification')
@@ -101,6 +100,7 @@ class TabTraining(ttk.Frame):
                 # The activity existed in monitoring data must cover the labels in training, so that the metrics are properly calculated
                 monitoring_data_label_set = pd.Series(np.unique(np.array(monitoring_data_filtered_by_selected_labels['label']).tolist()))
                 monitoring_data_label_set = monitoring_data_label_set.sort_values(ascending=True)
+
                 globals.monitoring_mode = monitoring_data_label_set.equals(globals.label_set)
 
                 if not globals.monitoring_mode:
@@ -121,13 +121,8 @@ class TabTraining(ttk.Frame):
             self.support_vector_machine = classifiers.CLS(svm.SVC(C=1.0, kernel='rbf', gamma='scale', decision_function_shape='ovo'),'SVM')
             self.naive_bayes = classifiers.CLS(GaussianNB(),'Naive_Bayes')
             self.kfold = int(self.cboKfold.get())
-            
-
-        
 
             self.no_of_original_train_valid_test_data_points = len(train_valid_test_data_filtered_by_selected_labels.index)   
-
-            
             
             if self.rdoResampling.get() == 0: # User wants to keep the original sampling rates
 
@@ -514,6 +509,7 @@ class TabTraining(ttk.Frame):
         # Select only unique activities values if duplicate
         globals.label_set = pd.Series(np.unique(label_set.values))
         globals.label_set = globals.label_set.sort_values(ascending=True)
+        self.label_set_origin = globals.label_set.copy()
 
         no_of_labels = len(globals.label_set)
         if no_of_labels < 2:

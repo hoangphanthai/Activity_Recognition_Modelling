@@ -1,5 +1,6 @@
 __pycache__
 .idea
 .vscode
+env
 csv_out/z
 datasets/temp/*

@@ -43,6 +43,9 @@ def get_training_monitoring_data_from_db():
                     lambda x: math.sqrt(x.gx * x.gx + x.gy * x.gy + x.gz * x.gz), axis = 1)
                 globals.monitoring_data_frame.loc[:, 'accMag'] = globals.monitoring_data_frame.apply(
                     lambda x: math.sqrt(x.ax * x.ax + x.ay * x.ay + x.az * x.az), axis = 1)
+                
+                # Copy for the case user moving from binary to multiclassification
+                globals.monitoring_data_frame_origin = globals.monitoring_data_frame.copy()    
 
             log_message('Finish calculating the magnitudes of Acc and Gyro')
             log_message('Finish data importing!')
@@ -77,6 +80,10 @@ def get_training_monitoring_data_from_csv_file():
                 lambda x: math.sqrt(x.gx * x.gx + x.gy * x.gy + x.gz * x.gz), axis = 1)
             globals.monitoring_data_frame.loc[:, 'accMag'] = globals.monitoring_data_frame.apply(
                 lambda x: math.sqrt(x.ax * x.ax + x.ay * x.ay + x.az * x.az), axis = 1)
+           
+            # Copy for the case user moving from binary to multiclassification
+            globals.monitoring_data_frame_origin = globals.monitoring_data_frame.copy()                    
+            
         log_message('Finish calculating the magnitudes of Acc and Gyro')
 
         return True    

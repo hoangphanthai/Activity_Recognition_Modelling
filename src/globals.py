@@ -100,6 +100,9 @@ def init():
     global monitoring_data_frame
     monitoring_data_frame = None
 
+    global monitoring_data_frame_origin
+    monitoring_data_frame_origin = None
+
     global monitoring_data_frame_resampled_monitor
     monitoring_data_frame_resampled_monitor = None
 

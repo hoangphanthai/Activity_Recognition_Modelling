@@ -2,14 +2,13 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.ticker as mticker
 from matplotlib.ticker import MaxNLocator
     
 
 def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
     # stride and length is the numbering index of the dataframe not the time in epoch
     # input df1 should contain timestamp label, prediced label and axayazgzgygz
-    # print('from simulation show')
-    # print(df1.head(2))
     
     cols = ['gx', 'gy', 'gz', 'ax', 'ay', 'az']
     df = df1[cols]
@@ -70,9 +69,13 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
 
         pred.clear()
         plt.setp(pred.xaxis.get_majorticklabels(), fontsize=7, rotation=45)
+        
         pred.set_ylim([0, lenoflabels + 1])
         pred.plot(xs, predicted, color='red')
         pred.plot(xs, ground_true, color='blue')
+        ticks_loc = pred.get_yticks()
+        pred.yaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
+
         pred.set_yticklabels(labels)
         pred.set_title('Prediction and Ground Truth', fontsize=10)
 
@@ -111,6 +114,7 @@ def plot_stacked_bar(data, series_labels, category_labels=None,
                        or right-to-left)
     '''
     plt.subplot(121)
+
     ny = len(data[0])
     ind = list(range(ny))
     axes = []
@@ -144,12 +148,17 @@ def plot_stacked_bar(data, series_labels, category_labels=None,
                 plt.text(bar.get_x() + w / 2, bar.get_y() + h / 2,
                          value_format.format(h), ha='center',
                          va='center')
-    plt.gca().set_yticklabels(['{:.0f}%'.format(x) for x in plt.gca().get_yticks()])
+
+    ticks_loc = plt.gca().get_yticks()
+    plt.gca().yaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
+    plt.gca().set_yticklabels(['{:.0f}%'.format(x) for x in ticks_loc])
+
     plt.xlabel('Data', fontsize=12)
     plt.title('Activity Pattern Comparision', fontsize=13)
 
 
 def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, monitoring_sampling_rate):
+
     # Begin calculating statistics percentage plot on the left ->
     original_activity_percentage = pd.DataFrame(
         test_dataset_resampled_monitor['label'].value_counts(normalize=True) * 100)
@@ -208,8 +217,6 @@ def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, mon
     colors_list = ['#002097', '#4d88d5', 'r']
 
     ax2 = plt.subplot(122)
-    # df1 = result.div(result.sum(1), axis=0)
-    # df1=(df1*100).round(2)
     absolute_df.plot(ax=ax2, kind='bar', color=colors_list, edgecolor=None)
 
     plt.legend(prop={'size': 9})
@@ -233,7 +240,7 @@ def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, mon
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
     fig = plt.gcf()
-    fig.canvas.set_window_title('Statistics')
+    mng.set_window_title('Statistics')
     plt.show()
 
 
@@ -353,6 +360,6 @@ def monitoring_show(monitoring_data, sampling_rate):
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
     fig = plt.gcf()
-    fig.canvas.set_window_title('Monitoring')
+    mng.set_window_title('Monitoring')
 
     plt.show()
