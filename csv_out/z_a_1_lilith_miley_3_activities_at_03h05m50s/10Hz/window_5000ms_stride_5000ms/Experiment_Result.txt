@@ -1,0 +1,40 @@
+Train_Valid_Test DB table: a_1_lilith_miley_3_activities
+Monitoring         DB table: a_2_hanna_3_activities
+window_5000ms_stride_5000ms
+Labels to predict: Liegen Stehen
+Functions list      : ['min', 'max', 'mean', 'median', 'stdev', 'IQR', 'RMS', 'MCR', 'Kurt', 'Skew', 'Energy', 'PeakFreq', 'FreqEntrpy']
+Axes list             : ['gyrMag']
+------------------Round 1------------------
+Random_Forest accuracy:              0.875
+------------------Round 2------------------
+Random_Forest accuracy:               0.75
+------------------Round 3------------------
+Random_Forest accuracy:               0.75
+------------------Round 4------------------
+Random_Forest accuracy:                0.5
+------------------Round 5------------------
+Random_Forest accuracy:              0.875
+------------------Round 6------------------
+Random_Forest accuracy:              0.875
+------------------Round 7------------------
+Random_Forest accuracy:             0.7143
+------------------Round 8------------------
+Random_Forest accuracy:             0.8571
+------------------Round 9------------------
+Random_Forest accuracy:             0.2857
+------------------Round 10------------------
+Random_Forest accuracy:             0.8571
+
+Train_Valid 10-fold average accuracy of Random_Forest        0.7339
+-------------------------------------------------------------------------
+Accuracy of Random_Forest on Test data: 0.9459
+Random_Forest Confusion matrix on Test data
+Predicted ↓Liegen Stehen ↓
+→True Liegen [18  2]
+→True Stehen [ 0 17]
+------------------------------------------------------
+Accuracy of Random_Forest on monitoring data: 0.5978
+Random_Forest Confusion matrix on monitoring data
+Predicted ↓Liegen Stehen ↓
+→True Liegen [31 32]
+→True Stehen [ 5 24]

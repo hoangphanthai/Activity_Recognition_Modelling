@@ -56,6 +56,9 @@ class TabTraining(ttk.Frame):
 
 
     def models_fitting_clicked(self):
+        print(' ')
+        print(' ')
+        log_message('START BUILDING NEW MODEL(S)')
 
         time_now = datetime.datetime.now()
         globals.timestampforCSVfiles = '%02d' % time_now.hour + 'h' + '%02d' % time_now.minute + 'm' + '%02d' % time_now.second + 's'
@@ -85,9 +88,9 @@ class TabTraining(ttk.Frame):
             globals.monitoring_data_frame = globals.monitoring_data_frame_origin.copy()
 
             if globals.binary_mode:
-                log_message('Binary classification with main label ' + globals.main_label)
+                log_message('BINARY classification with main label: ' + globals.main_label)
             else:
-                log_message('Multi-class classification')
+                log_message('MULTI-CLASS classification  '+ globals.label_set.str.cat(sep=' '))
 
             train_valid_test_data_filtered_by_selected_labels = globals.train_valid_test_data_frame.loc[
                 globals.train_valid_test_data_frame['label'].isin(globals.label_set)].sort_values(by=['timestamp'], ascending=True)
