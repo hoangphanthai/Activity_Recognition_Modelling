@@ -10,9 +10,14 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
     # stride and length is the numbering index of the dataframe not the time in epoch
     # input df1 should contain timestamp label, prediced label and axayazgzgygz
     
-    cols = ['gx', 'gy', 'gz', 'ax', 'ay', 'az']
-    df = df1[cols]
+    #cols = ['gx', 'gy', 'gz', 'ax', 'ay', 'az']
+    colsY = ['gx', 'gy', 'gz']
+    df = df1[colsY]
     df = df.apply(lambda x: (x - np.mean(x)) / (np.max(x) - np.min(x)))
+
+    colsX = ['ax', 'ay', 'az']
+    df[colsX] = df1[colsX]
+
     df['label'] = df1['label']
     df['timestamp'] = df1['timestamp'].apply(str)
     df['timestamp'] = df['timestamp'].apply(lambda x: x[-7:])
@@ -53,7 +58,9 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
 
         acc.clear()
         plt.setp(acc.get_xticklabels(), visible=False)
-        acc.set_ylim([-1, 1])
+        #acc.set_ylim([-1, 1])
+        #acc.set_ylim([-0.3, 0.3])
+        acc.set_ylim([-3, 3])
         acc.plot(xs, ax)
         acc.plot(xs, ay)
         acc.plot(xs, az)
