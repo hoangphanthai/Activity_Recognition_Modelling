@@ -78,14 +78,12 @@ def init():
     global experiment_result_table_name
     experiment_result_table_name = None
 
-
     global train_valid_data_set_name
     train_valid_data_set_name = None
     global training_table_name
     training_table_name = None  
     global training_valid_test_data_file
     training_valid_test_data_file = None
-
 
     global monitoring_data_set_name
     monitoring_data_set_name = None
@@ -105,7 +103,6 @@ def init():
 
     global monitoring_data_frame_resampled_monitor
     monitoring_data_frame_resampled_monitor = None
-
 
     # For binary classification params
     global main_label
@@ -162,16 +159,12 @@ def init():
     global csv_txt_file_exporter
     csv_txt_file_exporter = None
     
-
     # This group of variables is for reports and statics
     global monitoring_data_fr
     monitoring_data_fr = None
     global predicted_data_fr
     predicted_data_fr = None
     
-    # global monitoring_time_deviation_fr
-    # monitoring_time_deviation_fr = None
-
     global monitoring_error_types_fr
     monitoring_error_types_fr = None    
     global curr_monitoring_algorithm
@@ -182,16 +175,3 @@ def init():
     curr_monitoring_sampling_rate = None
     global timestampforCSVfiles
     timestampforCSVfiles = None
-
-    
-    # rdoTrainingPhraseOnly = IntVar()
-    # rdoSimuStartTime = IntVar()
-
-
-  
-
-
-    
-    
-    # global model_comment
-    # model_comment = 'Comments:'
