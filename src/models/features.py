@@ -6,16 +6,16 @@ def centervalue(x):
     y = np.array(x)
     center = np.take(y, y.size // 2)
     # center = np.mean(y)
-    return (len(y)*float('{0:.3f}'.format(center)))/len(y)
+    return (len(y)*float("{0:.3f}".format(center)))/len(y)
 
 # Time domain features =>
 
 def IQR(x):
     interqtlrange = np.percentile(x, 75) - np.percentile(x, 25)
-    return (len(x)*float('{0:.3f}'.format(interqtlrange)))/len(x)
+    return float("{0:.3f}".format(interqtlrange))
 
 def RMS(x): # Calculate Root Mean Square
-    return float('{0:.3f}'.format(math.sqrt(sum(n*n for n in x)/len(x))))
+    return float("{0:.3f}".format(math.sqrt(sum(n*n for n in x)/len(x))))
 
 def MCR(x): # Calculate the Mean Crossing Rate
     my_array = np.array(x) - np.mean(x)
@@ -26,16 +26,14 @@ def MCR(x): # Calculate the Mean Crossing Rate
     return (sum/len(x))
 
 def Kurt(x): # Calculate the Kurtosis
-    return (len(x)*float('{0:.3f}'.format(kurtosis(x))))/len(x)
-    # return float('{0:.3f}'.format(kurtosis(x)))
+    return float("{0:.3f}".format(kurtosis(x)))
 
 def Skew(x): # Calculate the Skewness
-    return (len(x)*float('{0:.3f}'.format(skew(x))))/len(x)
+    return float("{0:.3f}".format(skew(x)))
 # End domain features <=
 
 # Frequency domain features =>
 def frEnergy(x): # Spectral Energy of the signal
-    # return np.sum(x**2)/len(x)
     n = len(x)
     mn = np.mean(x)
     # Remove DC Component
@@ -57,9 +55,7 @@ def frPeakFreq(x, sample_rate): # Frequency component that has the greatest magn
     mag = np.abs(fft_spectrum)/n
     # Frequencies
     f = np.linspace(0, sample_rate/2, len(mag))  # 10 Samples/sec, so 5 Hz is Nyquist limit
-    # print('Principal frequency - the highest peak')
     peak_idx = np.argpartition(mag, -1)[-1:]
-    # print(f[peak_idx][0])
     return f[peak_idx][0]
 
 def frDmEntroPy(x): #Frequency domain entropy, also known as a (Power) Spectral Entropy

@@ -85,7 +85,8 @@ class TabTraining(ttk.Frame):
 
             # Because the binary_mode will changes the non-main labels into 'Non-...'
             globals.label_set = self.label_set_origin.copy()
-            globals.monitoring_data_frame = globals.monitoring_data_frame_origin.copy()
+            if globals.monitoring_mode:
+                globals.monitoring_data_frame = globals.monitoring_data_frame_origin.copy()
 
             if globals.binary_mode:
                 log_message('BINARY classification with main label: ' + globals.main_label)
@@ -151,7 +152,7 @@ class TabTraining(ttk.Frame):
                     
                     globals.resampling_rate = resampling_rate                    
                     log_message('--------------------------------------------------------Running with resampled rate at ' + str(globals.resampling_rate) + 'Hz ')
-
+                    log_message('Sensor data is being resampled')
                     resampling_dict = {}
                     for axis in globals.list_axes_to_apply_functions:
                         resampling_dict[axis] = globals.function_set_for_resampling
@@ -658,16 +659,26 @@ class TabTraining(ttk.Frame):
         for x in json_axes_functions:
             features_in_dictionary[x] = []
             for val in json_axes_functions[x]:
+                # if val == 'min':
+                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['min']
+                # if val == 'max':
+                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['max']
+                # if val == 'mean':
+                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['mean']
+                # if val == 'median':
+                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['median']
+                # if val == 'stdev':
+                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['std']
                 if val == 'min':
-                    features_in_dictionary[x] = features_in_dictionary.get(x) + ['min']
+                    features_in_dictionary[x] = features_in_dictionary.get(x) + [np.min]
                 if val == 'max':
-                    features_in_dictionary[x] = features_in_dictionary.get(x) + ['max']
+                    features_in_dictionary[x] = features_in_dictionary.get(x) + [np.max]
                 if val == 'mean':
-                    features_in_dictionary[x] = features_in_dictionary.get(x) + ['mean']
+                    features_in_dictionary[x] = features_in_dictionary.get(x) + [np.mean]
                 if val == 'median':
-                    features_in_dictionary[x] = features_in_dictionary.get(x) + ['median']
+                    features_in_dictionary[x] = features_in_dictionary.get(x) + [np.median]
                 if val == 'stdev':
-                    features_in_dictionary[x] = features_in_dictionary.get(x) + ['std']
+                    features_in_dictionary[x] = features_in_dictionary.get(x) + [np.std]
                 if val == 'IQR':
                     features_in_dictionary[x] = features_in_dictionary.get(x) + [features.IQR]
                 if val == 'RMS':

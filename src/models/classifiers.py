@@ -27,7 +27,7 @@ class CLS:
             globals.csv_txt_file_exporter.write_single_line(output_string)
 
             if globals.label_set.size == 2:
-                self.train_valid_metrics['prec'] +=  round(metrics.precision_score(y_valid, y_pred_rf, average = 'binary', pos_label = globals.label_set[0]), 4)
+                self.train_valid_metrics['prec'] +=  round(metrics.precision_score(y_valid, y_pred_rf, average = 'binary', pos_label = globals.label_set[0], zero_division = 1), 4)
                 self.train_valid_metrics['recal'] +=  round(metrics.recall_score(y_valid, y_pred_rf, average = 'binary', pos_label = globals.label_set[0]), 4)
                 self.train_valid_metrics['f1'] +=  round(metrics.recall_score(y_valid, y_pred_rf, average = 'binary', pos_label = globals.label_set[0]), 4)
     
@@ -98,7 +98,7 @@ class CLS:
             # Additional confusion matrix for binary classification <-
 
             if globals.label_set.size == 2:
-                self.test_metrics['prec'] = round(metrics.precision_score(y_test, y_test_pred_rf, average = 'binary', pos_label = globals.label_set[0]), 4)
+                self.test_metrics['prec'] = round(metrics.precision_score(y_test, y_test_pred_rf, average = 'binary', pos_label = globals.label_set[0],zero_division = 1), 4)
                 self.test_metrics['recal'] = round(metrics.recall_score(y_test, y_test_pred_rf, average = 'binary', pos_label = globals.label_set[0]), 4)
                 self.test_metrics['f1'] = round(metrics.f1_score(y_test, y_test_pred_rf, average = 'binary',pos_label = globals.label_set[0]), 4)
 
@@ -119,7 +119,7 @@ class CLS:
             print(self.name + ' - Accuracy on Monitoring data ' + str(self.monitor_metrics['accu']))
 
             if globals.label_set.size == 2:
-                self.monitor_metrics['prec'] = round(metrics.precision_score(y_monitor_temp, y_monitor_pred_rf_temp, average = 'binary', pos_label = globals.label_set[0]), 4)
+                self.monitor_metrics['prec'] = round(metrics.precision_score(y_monitor_temp, y_monitor_pred_rf_temp, average = 'binary', pos_label = globals.label_set[0], zero_division = 1), 4)
                 self.monitor_metrics['recal'] = round(metrics.recall_score(y_monitor_temp, y_monitor_pred_rf_temp, average = 'binary', pos_label = globals.label_set[0]), 4)
                 self.monitor_metrics['f1'] = round(metrics.f1_score(y_monitor_temp, y_monitor_pred_rf_temp,average = 'binary', pos_label = globals.label_set[0]), 4)
 
