@@ -99,8 +99,7 @@ To be more clearly, with settings in 2.B, the Model training screen enables user
 ### C. The Ugly {bug}
 ... is missing  
 
-## 4. Simulator function helps to see the ground truth data and the model prediction in real time
-### Live plotting
+## 4. Simulation function helps to see the ground truth data and the model prediction in real time
 <p align="center">
   <img src="references/Live_Plotting.gif">
 </p>  
