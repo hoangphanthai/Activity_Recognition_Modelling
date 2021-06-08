@@ -16,7 +16,7 @@
 ### D. The project workflow
 After researching the previous studies, the workflow is implemented as shown below
 <p align="center">
-  <img src="references/work_flow.png"  title="hover text">
+  <img src="references/work_flow.png"  title="project workflow">
 </p>
 
 ### E. Input data source
@@ -36,14 +36,14 @@ After researching the previous studies, the workflow is implemented as shown bel
 | az | double precision | Accelerometer z axis signal value  |
 | timestamp | bigint | Timestamp in Unix Epoch time format  |
 
-With these initiatives, it is possible to train a model from mixed data of multiple cattles by storing sensor data of difference cattles in the **Train_Valid_Test** table (distinguished by **cattle_id**)  
+With these initiatives, it is possible to train a model from mixed data of multiple cattles by storing sensor data of different cattles in the **Train_Valid_Test** table (distinguished by **cattle_id**)  
 
 ### F. Repository Structure
 | Folder/File | Purpose |
 | ------------- | ------------- |
-| csv_out | Folder containing csv output files / experiment result for each run |
+| csv_out | Folder containing csv output files (experiment result) for each run |
 | src | Main source code |
-| src /db_credentials.ini | A template storing credentials and input tables/csv files for input data importing |
+| src/db_credentials.ini | A template storing credentials and input tables/csv filepaths for input data |
 | datasets | Folder contain sample input datasets for some cattle |
 
 ## 2. Step-by-step running
@@ -51,21 +51,21 @@ With these initiatives, it is possible to train a model from mixed data of multi
 The application supports importing data from either database or csv files:  
 #### - The database importing mode
 <p align="center">
-  <img src="references/Data_import.png"  title="hover text">
+  <img src="references/Data_import.png"  title="Data import tab">
 </p>
 
-* **Database credentials file path** section stores the path to the ini file that contains the database credentials (e.g., the template is the file **db_credentials.ini** mentioned above).  
-* **Host, Port, Database, User, Password** stores database connection and user credentials which are loaded (updated) from (to) ini file in Database credentials file path section.  
+* **Database credentials file path** section stores the path to the ini file that contains the database credentials (i.e., the template file **db_credentials.ini** mentioned above).  
+* **Host, Port, Database, User, Password** store database connection and user credentials which are loaded (updated) from (to) the ini file in Database credentials file path section.  
 * **Train_Valid_Test table** stores the name of database table which is used for the train/valid and test phrase. This table structure meets the requirements in Table in 1.E.  
 * **Statistics_Monitoring table** stores the name of database table which is used for the Statistics/Monitoring phrase. This table structure meets the requirements in Table in section 1.E. **If the checkbox is unchecked, then it only runs training/validation and testing phrase**
-* **Table to store result** stores the result for each experiment, it is automatically created if not exists on the database system. Every derived model will be saved into this table as a new record. The structure of this table is described in Structure of the result table.
+* **Table to store result** stores the result for each experiment, it is automatically created if not existing on the database system. Every derived model and its meta data will be saved into this table as a new record. The structure of this table is described in the Structure of the result table described below.
 
 #### - The csv files importing mode
 This is for those who don’t bother to set up a PostgreSQL database. The two csv files **Train_Valid_Test** and **Statistics_Monitoring** serve the same functions as the two database tables mentioned previously. Some of the sample input data files could be found in the [**datasets**](https://github.com/hoangphanthai/Activity_Recognition_Modelling/tree/main/datasets) folder.
 
 ### B. Model training screen  
 <p align="center">
-  <img src="references/Training_Tab.png"  title="hover text">
+  <img src="references/Training_Tab.png"  title="Training tab">
 </p>
 
 * **Classification problem**: The application supports building two types of problem, e.i. multi-class and binary classification. For binary classification, the application supports building model which classifies one main label (e.g. **Liegen**) against some other **Non-main labels (e.g. Gehen, Grasen, Stehen)**. In this case, the labelled training samples will be distributed at a **3:1:1:1** proportion  
@@ -99,19 +99,26 @@ To be more clearly, with settings in 2.B, the Model training screen enables user
 ### C. The Ugly {bug}
 ... is missing  
 
-## 4. Other important notes
+## 4. Simulator function helps to see the ground truth data and the model prediction in real time
+### Live plotting
+<p align="center">
+  <img src="references/Live_Plotting.gif">
+</p>  
+
+
+## 5. Other important notes
 ### A. How to train/valid/test on multiple (mixed) cows’ data and testing on another unseen cows?
 To train on cow 1,2,3 and test on cow 4, just create the **Train_Valid_Test table** containing data from cow 1,2,3 then create the **Statistics_Monitoring table** containing sensor data of cow 4. The structure of these tables must meet the requirements in 1.E. The result will be shown in console, updated into database (if selected) and logged into “Experiment_Result.txt” file located in **csv_out** folder as described in 1.F.  
 
 ### B. CSV log files
 <p align="center">
-  <img src="references/csv_out_folder.png"  title="hover text">
+  <img src="references/csv_out_folder.png"  title="csv folder structure">
 </p>  
  
 With a specific sampling rate and window size (type), the text file “Experiment_Result.txt” will be created to store the experiment results for that configuration. This .txt file is created in a sub folder of **csv_out** folder as shown in the Figure below. This sub folder is created in every run (every click on **Model fitting** button).
 Additionally, for each configuration (e.g., sampling rate, window size/stride) the data set regarding train_valid_test and monitoring can be logged into .csv file for checking of correctness in features calculation. To enable .csv files saving, in the app.ini file/section **[GLOBAL SETTINGS]**, just set the variable **csvsaving** to 1 (Or csvsaving = 1).
 
-## 5. The experiment result table on database
+## 6. The experiment result table on database
 In the case user selects importing data from database, the result of the experiment will be updated to the **Table to store result** given in section 2.A.  
 The structure of this table is as follow:  
 

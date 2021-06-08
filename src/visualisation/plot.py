@@ -88,14 +88,11 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
 
     _ = animation.FuncAnimation(fig, animate, np.arange(0, repeat), interval=delay_ms)
 
-    # # Set up formatting for the movie files
-    # Writer = animation.writers['ffmpeg']
-    # writer = Writer(fps=15, metadata=dict(artist='Me'), bitrate=1800)
-    # ani.save('lines.mp4', writer=writer)
-
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
     plt.show()
+    # Set up formatting for the gif file
+    # ani.save('c:\myAnimation.gif', writer=animation.PillowWriter(fps=24))
 
 
 def plot_stacked_bar(data, series_labels, category_labels=None,
@@ -238,7 +235,6 @@ def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, mon
 
     # Add this loop to add the annotations
     for p in ax2.patches:
-        # width, height = p.get_width(), p.get_height()
         height = p.get_height()
         x, y = p.get_xy()
         ax2.annotate('{:.1f}'.format(height), (x + 0.012, y + height + 0.02))
@@ -246,7 +242,6 @@ def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, mon
 
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
-    fig = plt.gcf()
     mng.set_window_title('Statistics')
     plt.show()
 

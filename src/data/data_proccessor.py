@@ -18,9 +18,6 @@ def validate_monitoring_run(txtWindowStride, selected_monitor_window_size, selec
             globals.curr_monitoring_sampling_rate != selected_monitoring_sample_rate)):
             # User changed one of these parameters for the simulation
         
-        # print("from data_processor")
-        # print("user changes parameter")
-
         window_stride_in_ms = math.floor(selected_monitor_window_size * int(txtWindowStride) / 100)
         
         path_with_train_valid_test_table_name = os.path.join(globals.root_dir, 'csv_out', globals.train_valid_data_set_name + '_at_' + globals.timestampforCSVfiles)
@@ -45,16 +42,8 @@ def validate_monitoring_run(txtWindowStride, selected_monitor_window_size, selec
             # Get the predicted data file location for the monitoring/staticstics
             globals.predicted_data_fr = pd.read_csv(file_name).sort_values(by=['timestamp'], ascending=True)
             
-            # write_apps_ini_files()
-
             # Recalculate the monitoring_data_fr
             globals.monitoring_data_fr = monitoring_data_generate(selected_monitoring_sample_rate, selected_monitor_window_size, globals.predicted_data_fr)
-
-            # ---> For checking, can be removed ->
-            # if globals.csv_saving:
-            #     globals.monitoring_data_fr[['label', 'gx', 'timestamp', 'predicted_label']].to_csv(
-            #         path_with_train_valid_test_table_name + hz_path + window_path + '/2_monitoring_data/monitoring_data.csv', header=True)
-            # ---> For checking, can be removed <-
 
             globals.curr_monitoring_algorithm = algorithm
             globals.curr_monitoring_window_size = selected_monitor_window_size
@@ -92,9 +81,6 @@ def monitoring_data_generate(simulation_sample_rate, window_size, predicted_df):
     else:
         globals.monitoring_data_frame_resampled_monitor = monitoring_data_set
 
-    # print("len of: monitoring_data_frame_resampled_monitor")
-    # print(len(monitoring_data_frame_resampled_monitor.index))
-
     result = pd.DataFrame()
 
     for _, row in predicted_df.iterrows():
@@ -105,8 +91,6 @@ def monitoring_data_generate(simulation_sample_rate, window_size, predicted_df):
                     globals.monitoring_data_frame_resampled_monitor['timestamp'] < start_time + window_size)]
         df_temp = df_temp.assign(predicted_label = predicted_temp)
         result = result.append(df_temp)
-    # print("len of monitoring_data_fr")
-    # print(len(result.index))
     if globals.binary_mode:
         for _, value in globals.sub_labels_set.items():
             result.loc[
@@ -144,7 +128,7 @@ def get_balanced_train_valid_test_data_set(agg_train_valid_test_filtered_unbalan
         else:
             no_of_each_sub_label_instances = globals.minimum_train_valid_instance_for_each_label
 
-        # For the purpose of correctly update into database
+        # For the purpose of correctly updating into database
         globals.minimum_train_valid_instance_for_each_label = no_of_each_sub_label_instances
 
         # Begin adjusting the proportion of Lying Standing Walking Grazing with proportion 3:1:1:1 =>

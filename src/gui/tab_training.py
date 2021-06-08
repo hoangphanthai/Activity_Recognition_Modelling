@@ -659,16 +659,6 @@ class TabTraining(ttk.Frame):
         for x in json_axes_functions:
             features_in_dictionary[x] = []
             for val in json_axes_functions[x]:
-                # if val == 'min':
-                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['min']
-                # if val == 'max':
-                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['max']
-                # if val == 'mean':
-                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['mean']
-                # if val == 'median':
-                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['median']
-                # if val == 'stdev':
-                #     features_in_dictionary[x] = features_in_dictionary.get(x) + ['std']
                 if val == 'min':
                     features_in_dictionary[x] = features_in_dictionary.get(x) + [np.min]
                 if val == 'max':
@@ -708,13 +698,6 @@ class TabTraining(ttk.Frame):
         
         globals.json_axes_functions = json_axes_functions
         globals.features_in_dictionary = features_in_dictionary
-
-        # log_message("tab_training")
-        # log_message('--4 below')
-        # print(json_axes_functions)
-        # print(type(json_axes_functions))
-        # print(features_in_dictionary)
-        # print(type(features_in_dictionary))
 
 
     def re_sampling_select(self):
@@ -804,7 +787,6 @@ class TabTraining(ttk.Frame):
         if self.intRadioMultiBinaryClsSelect.get() == 1:
 
             # Enable multi-class classification section controls     
-            # self.lblLabelsList.configure(state = 'normal')
             self.btnAllLabelsOnOff.configure(state = 'normal')
             self.multi_class_all_labels_select_deselect()
 
@@ -823,7 +805,6 @@ class TabTraining(ttk.Frame):
         elif self.intRadioMultiBinaryClsSelect.get() ==  0:
             
             # Disable multi-class classification section controls 
-            # self.lblLabelsList.configure(state = 'disabled')
             self.btnAllLabelsOnOff.configure(state = 'disabled')
             self.cboActivity1.configure(state = 'disabled')
             self.cboActivity2.configure(state = 'disabled')
@@ -1058,7 +1039,6 @@ class TabTraining(ttk.Frame):
         self.txtSimuFrameStride_text.set(params_training[36][1])
         self.txtSimuFrameDelay_text.set(params_training[37][1])
         self.txtSimuFrameRepeat_text.set(params_training[38][1])
-
 
         if params_training[39][1] == '1':
             self.chkBtnGx.select()
@@ -1512,7 +1492,7 @@ class TabTraining(ttk.Frame):
         self.txtSimuFrameRepeat = tk.Entry(self.lbl_live_plot, width = 20, textvariable = self.txtSimuFrameRepeat_text)
         self.txtSimuFrameRepeat.grid(row = 2, column = 4, padx = 4, pady = 3, sticky= tk.W)
 
-        self.btnSimulatition = tk.Button(self.lbl_live_plot, text='Simulator',  command = self.simulation_clicked,  width = 13)
+        self.btnSimulatition = tk.Button(self.lbl_live_plot, text='Simulate',  command = self.simulation_clicked,  width = 13)
         self.btnSimulatition.configure(font=('bold'))
         self.btnSimulatition.grid(row = 2, column = 5, padx = 8, pady = 3, sticky= tk.W)
         # For live plotting <=
@@ -1523,7 +1503,7 @@ class TabTraining(ttk.Frame):
         # self.btnStatics = tk.Button(self, text='Statics', bg='red', fg='white', command = self.statics_clicked, height = 2, width = 10)
         # self.btnStatics.place(x=830, y=460)    
 
-        self.btnFitting = tk.Button(self, text='Model fitting', bg='gold',  command = self.models_fitting_clicked, height = 2, width = 10)
+        self.btnFitting = tk.Button(self, text='Build models', bg='gold',  command = self.models_fitting_clicked, height = 2, width = 10)
         self.btnFitting.place(x=830, y=410)
 
         self.btnStatics = tk.Button(self, text='Statics', bg='gold', command = self.statics_clicked, height = 2, width = 10)

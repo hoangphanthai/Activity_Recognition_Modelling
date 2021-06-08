@@ -7,7 +7,7 @@ from globals import log_message
 
 def get_training_monitoring_data_from_db():
 
-    # Connect to the database and get the data for training and monitoring table
+    # Connect to the database and get the data for training and monitoring tables
     # Calculate the two derived columns 
     return_status = globals.start_db_connection()
     if return_status:
@@ -21,13 +21,13 @@ def get_training_monitoring_data_from_db():
             log_message('Connecting to the PostgreSQL database...')
             log_message('Start fetching data')
 
-            sqlQuery = 'SELECT * FROM ' + globals.training_table_name + ' ORDER BY timestamp ASC '  # limit 60000'
+            sqlQuery = 'SELECT * FROM ' + globals.training_table_name + ' ORDER BY timestamp ASC '
             
             cols = globals.COLUMS
             globals.train_valid_test_data_frame = pd.read_sql_query(sqlQuery, con = globals.conn)[cols]
 
             if globals.monitoring_mode:
-                sqlQuery2 = 'SELECT * FROM ' + globals.monitoring_table_name + ' ORDER BY timestamp ASC'  # limit 10'
+                sqlQuery2 = 'SELECT * FROM ' + globals.monitoring_table_name + ' ORDER BY timestamp ASC'
                 globals.monitoring_data_frame = pd.read_sql_query(sqlQuery2, con = globals.conn)[cols]
 
             log_message('Finish fetching data')
@@ -44,7 +44,7 @@ def get_training_monitoring_data_from_db():
                 globals.monitoring_data_frame.loc[:, 'accMag'] = globals.monitoring_data_frame.apply(
                     lambda x: math.sqrt(x.ax * x.ax + x.ay * x.ay + x.az * x.az), axis = 1)
                 
-                # Copy for the case user moving from binary to multiclassification
+                # Copy for the case user switches from binary to multi-class classification
                 globals.monitoring_data_frame_origin = globals.monitoring_data_frame.copy()    
 
             log_message('Finish calculating the magnitudes of Acc and Gyro')
@@ -81,7 +81,7 @@ def get_training_monitoring_data_from_csv_file():
             globals.monitoring_data_frame.loc[:, 'accMag'] = globals.monitoring_data_frame.apply(
                 lambda x: math.sqrt(x.ax * x.ax + x.ay * x.ay + x.az * x.az), axis = 1)
            
-            # Copy for the case user moving from binary to multiclassification
+            # Copy for the case when user switch from binary to multi-class classification
             globals.monitoring_data_frame_origin = globals.monitoring_data_frame.copy()                    
             
         log_message('Finish calculating the magnitudes of Acc and Gyro')

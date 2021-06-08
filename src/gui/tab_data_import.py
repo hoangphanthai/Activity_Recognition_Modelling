@@ -115,7 +115,6 @@ class TabDataImport(ttk.Frame):
         self.btnIniTrainingCSV = tk.Button(self.lbl_frame_csv_group, text = 'Select another CSV file', command = self.btnIniSelectTraining_clicked)
         self.btnIniTrainingCSV.grid(row = 0, column = 2, padx = 5, pady = 1, sticky = tk.W)
 
-
         self.btnMonitoringCSVOnOff = tk.Checkbutton(self.lbl_frame_csv_group, command = self.monitoringCSVSelectDeselect, text = 'Statistics_Monitoring data file',
                                         variable = self.selectMonitoringCSVActivityOnOff, onvalue = 1, offvalue = 0, height = 1)
         self.btnMonitoringCSVOnOff.grid(row = 1, column = 0, padx = 5, pady = 2, sticky = tk.W)
@@ -172,12 +171,10 @@ class TabDataImport(ttk.Frame):
             # Check the existing of the input files otherwise set the ones from ini template, for better user experience
             txtTrainCSVFile = params_csv[0][1]
             if not os.path.isfile(txtTrainCSVFile):
-                # txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_lilith_35_hours.csv')
                 txtTrainCSVFile = os.path.join(globals.root_dir, 'datasets', 'GoatData','goat02_standing_walking_grazing_17mins.csv')
 
             txtMonitoringCSVFile = params_csv[1][1]
             if not os.path.isfile(txtMonitoringCSVFile):
-                # txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'sensor_data_hanna_35_hours.csv')
                 txtMonitoringCSVFile = os.path.join(globals.root_dir, 'datasets', 'GoatData', 'goat03_standing_walking_grazing_17mins.csv')
 
             self.txtTrainCSVFile_Text.set(txtTrainCSVFile)

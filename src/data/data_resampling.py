@@ -4,18 +4,23 @@ import numpy as np
 
 import globals
 
-# This function is to predict the sampling rate from a sensor data set
+# This function is trying to predict the sampling rate from the input sensor dataset
 def get_original_sampling_rate():
     
-    # Calculate the delay in milliseconds between data points and predict the sampling rate
-    first_1000_data_points = globals.train_valid_test_data_frame.head(1000).sort_values(by='timestamp', ascending=True)
-    first_label = first_1000_data_points['label'].iloc[0]
-    first_1000_data_points = first_1000_data_points.loc[first_1000_data_points['label'].isin([first_label])]
+    # Get the first cattle_id and label
+    first_cattle = globals.train_valid_test_data_frame['cattle_id'].iloc[0]
+    first_label = globals.train_valid_test_data_frame['label'].iloc[0]
+
+    first_1000_data_points = globals.train_valid_test_data_frame.loc[(globals.train_valid_test_data_frame['cattle_id'] == first_cattle) & (globals.train_valid_test_data_frame['label'] == first_label)].head(1000).sort_values(by='timestamp', ascending=True)
+
+    # Calculate the delay in milliseconds between data points to predict the sampling rate
     list_temp = []
     for i in range(1, len(first_1000_data_points.index)):
         list_temp.append(int(first_1000_data_points['timestamp'].iloc[i]) - int(first_1000_data_points['timestamp'].iloc[i - 1]))
     
+    # Get the value which is mostly occured
     delay_between_data_points = max(set(list_temp), key=list_temp.count)
+    
     return round(1000 / delay_between_data_points)
 
 

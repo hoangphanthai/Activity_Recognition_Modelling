@@ -23,7 +23,6 @@ class CLS:
             self.train_valid_metrics['accu'] += temp_acc
 
             output_string = '{:<35}{:>8}'.format('\n' + self.name + ' accuracy: ', str(temp_acc))
-            # globals.csv_txt_file_exporter.write_single_line( + str(temp_acc))
             globals.csv_txt_file_exporter.write_single_line(output_string)
 
             if globals.label_set.size == 2:
