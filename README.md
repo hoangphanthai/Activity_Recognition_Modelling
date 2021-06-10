@@ -126,9 +126,10 @@ The structure of this table is as follow:
 | model_title | text | This column is created for the purpose of showing the model to the end-user. The default value is an empty string, when it is given a string then it will be shown to the end-user. |
 | model_init_name | text | The initialised name of the model, after a model is trained then its name is set at the default format: [date_of_creation] _[hhmmss]_username_[Binary/Multi]_[name_of_algorithm]  An example is “20200520_005954_thaihp_Binary_RandomForest” |
 | model_binary_content | bytea | The content of the model in binary format |
-| model_comments | text | User comments of the model |
+| features_json_content | json | The features representation in json format |
+| model_comments | text | Creator's comments/descriptions of the model |
 | train_table | text | The name of table for training |
-| monitor_table | text | Table for the Staticstic_Monitoring metrics |
+| monitor_table | text | The name of table for the Staticstic_Monitoring metrics |
 | no_of_predicted_classes | integer | Number of classes to be classified |
 | list_of_predicted_classes | text | List of classes to be classified |
 | original_sample_rate_in_hz | integer | The original sampling rate of the training data (train_table) |
