@@ -438,7 +438,6 @@ class TabDataImport(ttk.Frame):
             else:    
                 data_source_select_params['dbisselected'] = '0'
 
-
             # Update cridentials for database connection
             db_credentials_params = {}
             db_credentials_params['host'] = self.txtHost_text.get()

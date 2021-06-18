@@ -1,6 +1,7 @@
 
 import tkinter as tk
 from tkinter import ttk
+from sys import platform
 
 from globals import log_message
 from .tab_data_import import TabDataImport
@@ -25,8 +26,15 @@ class Mainform:
         
     def start(self):
         self.window.title('Activity Recognition Modelling')
-        self.window.geometry('935x700')
-        self.window.geometry('+{}+{}'.format(210, 30))
+
+        # Checking the OS platform
+        if platform == "darwin": # Mac OS
+            self.window.geometry('1230x700')
+            self.window.geometry('+{}+{}'.format(30, 30))
+        else: # Windows or others
+            self.window.geometry('935x700')
+            self.window.geometry('+{}+{}'.format(210, 30))
+        
         self.window.resizable(0, 0)
         # self.window.deiconify()
         self.window.mainloop()

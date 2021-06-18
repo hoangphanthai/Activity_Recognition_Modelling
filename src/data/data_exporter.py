@@ -2,6 +2,7 @@ import os
 import globals
 
 class CsvTxtFileExporter():
+    
     def __init__(self, samping_rate):
         
         csv_folder = os.path.join(globals.root_dir,'csv_out')      
@@ -20,7 +21,6 @@ class CsvTxtFileExporter():
         
         self.window_size_stride_path = os.path.join(self.folder_path_with_each_model, self.str_window_size_stride)    
         os.mkdir(self.window_size_stride_path)
-
         os.mkdir(os.path.join(self.window_size_stride_path, '1_train_valid_test_set'))
         os.mkdir(os.path.join(self.window_size_stride_path, '2_monitoring_data'))
         os.mkdir(os.path.join(self.window_size_stride_path, '3_kfold'))
@@ -43,7 +43,6 @@ class CsvTxtFileExporter():
                 self.text_file.write('\nMonitoring         CSV file: ' + globals.monitoring_data_file)
 
         self.text_file.write('\n' + self.str_window_size_stride)
-
         self.text_file.write('\nLabels to predict: ' + globals.label_set.str.cat(sep=' '))
         self.text_file.write('\nFunctions list      : ' + str(globals.list_agg_function_names))
         self.text_file.write('\nAxes list             : ' + str(globals.list_axes_to_apply_functions))

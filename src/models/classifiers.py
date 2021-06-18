@@ -187,9 +187,7 @@ class CLS:
                 model_init_name += '_Multi_'
            
             model_init_name += self.name
-
             model_data_content = pickle.dumps(self.clf)  # pickle the model
-
             duration = round(((end_time - globals.start_time).total_seconds()) / 60, 2)
             
             record_to_insert = (
@@ -221,7 +219,6 @@ class CLS:
         self.train_valid_metrics['recal'] = 0
         self.train_valid_metrics['f1'] = 0
         self.train_valid_metrics['spec'] = 0
-        
 
         self.test_metrics = {}
         self.test_metrics['accu'] = 0

@@ -6,7 +6,6 @@ def initialize_general_settings():
    
     try:
         globals.app_config.read(os.path.join(globals.dir_path, globals.APP_INI_FILE))
-
         params_global_setting = globals.app_config.items('GLOBAL SETTINGS')
         if params_global_setting[0][1] == '1':
             globals.binary_mode = True
@@ -26,7 +25,6 @@ def initialize_general_settings():
 
 
 def update_db_credentials_file_path(iniFileNameFullPath):
-   
     try:
         globals.app_config['IMPORT TAB']['dbini'] = iniFileNameFullPath
         with open(os.path.join(globals.dir_path, globals.APP_INI_FILE), 'w') as configfile:
@@ -37,7 +35,6 @@ def update_db_credentials_file_path(iniFileNameFullPath):
 
 
 def get_db_params_from_in_file(iniFileNameFullPath):
- 
     try:
         globals.db_config.read(iniFileNameFullPath)
         return globals.db_config.items('POSTGRESQL')
@@ -47,7 +44,6 @@ def get_db_params_from_in_file(iniFileNameFullPath):
 
 
 def update_import_data_controls_init_params(iniFileNameFullPath, data_source_select_params, db_credentials_params, csv_paths_params):
-    
     try:       
         for item in data_source_select_params:
             globals.db_config['DATA SOURCE'][item] = data_source_select_params[item]
@@ -70,7 +66,6 @@ def update_import_data_controls_init_params(iniFileNameFullPath, data_source_sel
 def get_import_data_controls_init_params():
     try:
         globals.app_config.read(os.path.join(globals.dir_path, globals.APP_INI_FILE))
-
         db_credentials_file_path = globals.app_config['IMPORT TAB']['dbini']
 
         # POSTGRESQL section contains invalid ini file path then set the template
@@ -87,7 +82,6 @@ def get_import_data_controls_init_params():
 
 
 def update_training_tab_layout_data(input_training_settings):
-
     try:
         if globals.binary_mode:
             globals.app_config['GLOBAL SETTINGS']['binarymode'] = '1'
