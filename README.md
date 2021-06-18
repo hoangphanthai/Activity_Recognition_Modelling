@@ -11,7 +11,7 @@
 * This project is to find the answer to the question of how often and how much data a model should consume while remaining significant accuracy in predicting a particular set of cattle activities. This is, more specifically, to find the most contributing sensor axes and at what sampling rate, and how large a window of sampled data should be used.  
 
 ### C. Development Language and running Environment
-* The project is developed with Python 3.8 (64 bit), and **WindowOS** is the recommended running environment.  The GUI is distorted on MacOS as the tkinter library is not well supported by the system. The author is planning to convert this project into the web version.
+* The project is developed with Python 3.8 (64 bit), and **WindowOS** is recommended as the running environment. The author is planning to convert this project into the web version.
 
 ### D. The project workflow
 After researching the previous studies, the workflow is implemented as shown below
@@ -44,7 +44,7 @@ With these initiatives, it is possible to train a model from mixed data of multi
 | csv_out | Folder containing csv output files (experiment result) for each run |
 | src | Main source code |
 | src/db_credentials.ini | A template storing credentials and input tables/csv filepaths for input data |
-| datasets | Folder contain sample input datasets for some cattle |
+| datasets | Folder containing sample input datasets for some cattle |
 
 ## 2. Step-by-step running
 ### A. Data importing  
