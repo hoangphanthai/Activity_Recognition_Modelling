@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.ticker as mticker
 from matplotlib.ticker import MaxNLocator
+from sys import platform
     
 
 def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
     # stride and length is the numbering index of the dataframe not the time in epoch
     # input df1 should contain timestamp label, prediced label and axayazgzgygz
     
-    #cols = ['gx', 'gy', 'gz', 'ax', 'ay', 'az']
     colsY = ['gx', 'gy', 'gz']
     df = df1[colsY]
     df = df.apply(lambda x: (x - np.mean(x)) / (np.max(x) - np.min(x)))
@@ -34,8 +34,9 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
 
     labels = label_set.tolist()
     lenoflabels = len(label_set)
-    labels.insert(0, '')
-    labels.insert(len(labels), '')
+    if platform == "win32": # Windows OS
+        labels.insert(0, '')
+        labels.insert(len(labels), '')
 
     fig = plt.figure()
     acc = fig.add_subplot(3, 1, 1)
@@ -77,7 +78,11 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
         pred.clear()
         plt.setp(pred.xaxis.get_majorticklabels(), fontsize=7, rotation=45)
         
-        pred.set_ylim([0, lenoflabels + 1])
+        if platform == "win32": # Windows OS
+            pred.set_ylim([0, lenoflabels + 1])
+        else:
+            pred.set_ylim([1, lenoflabels])
+
         pred.plot(xs, predicted, color='red')
         pred.plot(xs, ground_true, color='blue')
         ticks_loc = pred.get_yticks()
@@ -88,8 +93,10 @@ def simulation_show(label_set, df1, length, stride, delay_ms, repeat):
 
     _ = animation.FuncAnimation(fig, animate, np.arange(0, repeat), interval=delay_ms)
 
-    mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
+    
+    if platform == "win32": # Windows OS
+        mng = plt.get_current_fig_manager()
+        mng.window.state('zoomed')
     plt.show()
     # Set up formatting for the gif file
     # ani.save('c:\myAnimation.gif', writer=animation.PillowWriter(fps=24))
@@ -241,7 +248,8 @@ def statistics_metrics_show(test_dataset_resampled_monitor, monitoring_data, mon
     # End calculating absolute plot on the right <-
 
     mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
+    if platform == "win32": # Windows OS
+        mng.window.state('zoomed')
     mng.set_window_title('Statistics')
     plt.show()
 
@@ -360,8 +368,9 @@ def monitoring_show(monitoring_data, sampling_rate):
         axes[1].annotate('{}'.format(height), (x + 0.35, y + height + 0.05))
     # End calculating absolute plot on the right <-
     mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
-    fig = plt.gcf()
+    if platform == "win32": # Windows OS
+        mng.window.state('zoomed')
+    # fig = plt.gcf()
     mng.set_window_title('Monitoring')
 
     plt.show()
